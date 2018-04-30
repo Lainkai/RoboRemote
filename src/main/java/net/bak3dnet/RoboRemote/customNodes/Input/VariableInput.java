@@ -1,19 +1,24 @@
 package net.bak3dnet.RoboRemote.customNodes.Input;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
+import javafx.scene.shape.Circle;
 
 public class VariableInput extends Region {
 
 	private Arc variArc = new Arc();
 	private int inputVal=0;
+	final Logger logger = LoggerFactory.getLogger(VariableInput.class);
 	
 	public VariableInput() {
 		
 		this.setPrefSize(300, 300);
-		
 		drawArc();
 		
 	}
@@ -31,21 +36,29 @@ public class VariableInput extends Region {
 		
 		variArc.setFill(Color.rgb(255, 25, 155));
 		
-		this.getChildren().add(variArc);
+		Circle circ = new Circle(85, Color.WHITE);
+		circ.setCenterX(250);
+		circ.setCenterY(250);
+		circ.setEffect(new DropShadow());
+		
+		this.getChildren().addAll(variArc, circ);
+
 		
 	}
 
 	public void setPercentage(int byteVal) {
 		
-		inputVal = byteVal;
+		if(byteVal>=0 && byteVal<=255) {
+			inputVal = byteVal;
+		}
+		
 		drawArc();
 		
 	}
 	
-	private int percentDegrees() {
+	private double percentDegrees() {
 		
-		int result = 0-((inputVal/255)*360);
-		System.out.println(result);
+		double result = -(inputVal/255D)*360D;
 		return result;
 		
 	}

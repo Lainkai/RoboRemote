@@ -35,11 +35,18 @@ public class Starter extends Application {
 			
 			inputVal = inputVal-1;
 			throttle.setPercentage(inputVal);
-			logger.info(Integer.toString(inputVal));
 			
 		});
 		
-		mainPane.getChildren().addAll(throttle,b);
+		Button c = new Button("Increase Percentage");
+		c.setOnAction((event) -> {
+			
+			inputVal = inputVal+1;
+			throttle.setPercentage(inputVal);
+			
+		});
+		
+		mainPane.getChildren().addAll(throttle,b,c);
 		
 		Scene mainScene = new Scene(mainPane, 1280, 720);
 		
